@@ -1,0 +1,19 @@
+{% extends 'mail_service/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Список клиентов</h2>
+    <ul>
+        {% for client in client_list %}
+            <li>
+                {{ client.email }} - {{ client.full_name }}
+                <a href="{% url 'mail_service:client_update' pk=client.pk %}" class="btn btn-primary">Редактировать</a>
+                <a href="{% url 'mail_service:client_delete' pk=client.pk %}" class="btn btn-danger">Удалить</a>
+            </li>
+        {% empty %}
+            <li>Клиенты не найдены.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'mail_service:client_create' %}" class="btn btn-success">Создать нового клиента</a>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'mail_service/base.html' %}
+{% load static %}
+
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{ blog.title }}</h1>
+            {% if blog.image %}
+            <img src="{{ blog.image.url }}" class="img-fluid" alt="{{ blog.title }}">
+            {% else %}
+            {% comment %} Путь к дефолтной картинке {% endcomment %}
+            <img src="{% static 'blog/blog.jpg' %}" class="img-fluid" alt="Дефолтное изображение блога">
+            {% endif %}
+            <p>{{ blog.text }}</p>
+            <p><small class="text-muted">Просмотры: {{ blog.count_of_view }}</small></p>
+            <p><small class="text-muted">Дата публикации: {{ blog.date }}</small></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

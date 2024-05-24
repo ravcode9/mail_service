@@ -1,0 +1,21 @@
+{% extends 'mail_service/base.html' %}
+
+{% block title %}Создание рассылки{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2 class="mb-4">Создание рассылки</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                {{ formset.management_form }}
+                {% for form in formset %}
+                {{ form.as_p }}
+                {% endfor %}
+                <button type="submit">Создать</button>
+            </form>
+        </div>
+    </div>
+    {% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'mail_service/base.html' %}
+
+{% block title %}Детали рассылки: {{ object }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{{ object }}</h2>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Значение</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Дата и время начала</td>
+                                <td>{{ object.start_datetime }}</td>
+                            </tr>
+                            <tr>
+                                <td>Дата и время завершения</td>
+                                <td>{{ object.end_datetime }}</td>
+                            </tr>
+                            <tr>
+                                <td>Периодичность</td>
+                                <td>{{ object.get_frequency_display }}</td>
+                            </tr>
+                            <tr>
+                                <td>Статус</td>
+                                <td>{{ object.get_status_display }}</td>
+                            </tr>
+                            <tr>
+                                <td>Клиенты</td>
+                                <td>
+                                    <ul>
+                                        {% for client in object.clients.all %}
+                                            <li>{{ client }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Попытки доставки</td>
+                                <td>
+                                    <ul>
+                                        {% for log in object.log_set.all %}
+                                            <li>
+                                                <strong>Дата и время:</strong> {{ log.datetime }}<br>
+                                                <strong>Успех:</strong> {% if log.status == 'OK' %}Да{% else %}Нет{% endif %}<br>
+                                            </li>
+                                        {% empty %}
+                                            <li>Нет попыток доставки для этой рассылки.</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

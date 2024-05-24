@@ -1,0 +1,14 @@
+{% extends 'mail_service/base.html' %}
+
+{% block title %}Детали клиента{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Детали клиента</h2>
+    <p>Имя клиента: {{ object.name }}</p>
+    <p>Email клиента: {{ object.email }}</p>
+    <!-- Дополнительные поля, если нужно -->
+    <a href="{% url 'mail_service:client_update' pk=object.pk %}" class="btn btn-primary">Редактировать</a>
+    <a href="{% url 'mail_service:client_delete' pk=object.pk %}" class="btn btn-danger">Удалить</a>
+</div>
+{% endblock %}
